@@ -3,8 +3,8 @@ import os
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 # Thông số
-MODEL_DET = "yolov8m.pt"
-DATASET_PEST_YAML = "D:/ThiGiacMayTinh/CV-main/Dataset with augmentation/data.yaml"
+MODEL_DET = "yolov8n.pt"
+DATASET_PEST_YAML = "D:/ThiGiacMayTinh/CV-main/pest_final/data.yaml"
 EPOCHS = 50
 IMGSZ = 640
 BATCH = 8
@@ -21,9 +21,9 @@ cmd = [
     f"batch={BATCH}",
     "device=0", 
     "verbose=True",
-    "name=train_tomato_leaf_v8m"
+    "name=train_tomato_pest_v8n"
 ]
 
-print("Bắt đầu train YOLO leaf detection...")
+print("Bắt đầu train YOLO pest detection...")
 subprocess.run(cmd, check=True)
-print("Hoàn tất train YOLO leaf detection!")
+print("Hoàn tất train YOLO pest detection!")

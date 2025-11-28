@@ -29,11 +29,11 @@ st.title("Phát hiện Bệnh & Sâu bọ (YOLOv8)")
 @st.cache_resource
 def load_models():
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    st.sidebar.info(f"📦 Đang tải models lên **{device.upper()}**...")
+    st.sidebar.info(f"Đang tải models lên **{device.upper()}**...")
     
     try:
         model_disease = YOLO("runs/detect/train_tomato_leaf_v8m/weights/best.pt").to(device)
-        model_pest = YOLO("runs/detect/train_pest_full_update_v8m2/weights/best.pt").to(device)
+        model_pest = YOLO("runs/detect/train_tomato_pest_v8n/weights/best.pt").to(device)
         st.sidebar.success(f" Models đã sẵn sàng trên **{device.upper()}**!")
         return model_disease, model_pest, device
     except Exception as e:
@@ -110,10 +110,6 @@ iou_threshold = st.sidebar.slider("Ngưỡng chồng lấn (IOU)",
                                    value=0.45, step=0.05,
                                    key="iou_slider",
                                    help="Lọc bỏ các ô vuông bị trùng lặp. Giá trị thấp = lọc nghiêm ngặt hơn.")
-# --- (MỚI) Checkbox Quyết định Xử lý ---
-apply_fix = st.sidebar.checkbox("Áp dụng Cải thiện Ảnh", 
-                                value=False, # Mặc định là TẮT
-                                help="Bật nếu ảnh của bạn bị tối, mờ hoặc nhiễu (ví dụ: ảnh webcam). Tắt nếu ảnh đã rõ nét (ví dụ: ảnh từ điện thoại).")
 
 # ==========================================
 # 🖥 Giao diện 2 nút
@@ -148,9 +144,7 @@ if source_file is not None:
     # 2. GỌI HÀM XỬ LÝ CHUNG
     # Truyền giá trị của checkbox `apply_fix` vào
     image_bgr_processed, image_pil_display = preprocess_image_for_yolo(
-        image_path, 
-        apply_enhancements=apply_fix 
-    )
+        image_path)
     
     # 3. Dọn dẹp file tạm
     tfile.close()
@@ -190,7 +184,7 @@ if source_file is not None:
             if not enable_dect and not enable_pest:
                 st.warning("Bạn đã tắt cả hai model. Vui lòng bật ít nhất một model trong Sidebar.")
             else:
-                st.info("Không phát hiện đối tượng nào (với ngưỡng Conf > " f"{conf_threshold*100:.0f}%" " và IOU < " f"{iou_threshold*100:.0f}%).")
+                st.info("Không phát hiện đối tượng nào (với ngưỡng Conf > " f"{conf_threshold*100:.1f}%" " và IOU < " f"{iou_threshold*100:.1f}%).")
         
         st.caption(f"Thời gian xử lý: {end_time - start_time:.2f} giây trên {device.upper()}")
             

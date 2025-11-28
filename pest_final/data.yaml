@@ -1,0 +1,13 @@
+train: D:/ThiGiacMayTinh/CV-main/pest_final/train/images
+val: D:/ThiGiacMayTinh/CV-main/pest_final/valid/images
+test: D:/ThiGiacMayTinh/CV-main/pest_final/test/images
+
+nc: 8
+names: ['Beet armyworm', 'Cotton bollworm', 'Green peach aphid', 'Silverleaf whitefly', 'Tobacco cutworm', 'melon fly', 'melon thrips', 'spider mite']
+
+roboflow:
+  workspace: tri-emxtc
+  project: tomato-pest-2-upload-test-fgzv4
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/tri-emxtc/tomato-pest-2-upload-test-fgzv4/dataset/1
