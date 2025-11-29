@@ -5,7 +5,7 @@ os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 # Thông số
 MODEL_DET = "yolov8n.pt"
 DATASET_PEST_YAML = "D:/ThiGiacMayTinh/CV-main/pest_final/data.yaml"
-EPOCHS = 50
+EPOCHS = 100
 IMGSZ = 640
 BATCH = 8
 
